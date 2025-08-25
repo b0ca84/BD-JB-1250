@@ -60,6 +60,7 @@ discdir:
 	cp -f payloads/lapse/Lapse.jar src/org/bdj/payload.jar || true
 	cp -r BDMV discdir/
 	cp payload.bin discdir/
+    cp -f payload99.bin discdir/ || true
 
 discdir/BDMV/JAR/00000.jar: discdir $(SOURCES)
 	$(JAVAC) $(JFLAGS) -cp $(CLASSPATH) $(SOURCES)

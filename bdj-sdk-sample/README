@@ -1,0 +1,11 @@
+Requirements:
+    https://github.com/john-tornblom/bdj-sdk
+    https://github.com/ps4-payload-dev/sdk
+
+
+follow all instructions for both requirements
+copy bdjstack.jar and rt.jar from PS4 /system_ex/app/NPXS20113 to bdj-sdk/target/lib
+adjust BDJSDK_HOME in rebuild.sh
+run rebuild.sh
+
+Thanks to all twitter ps4/ps5 scene people

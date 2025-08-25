@@ -480,7 +480,7 @@ void payload99() {
     snprintf(payload99_paths[3], sizeof(payload99_paths[3]), "/mnt/usb3/payload99.bin");
     snprintf(payload99_paths[4], sizeof(payload99_paths[4]), "/mnt/usb4/payload99.bin");
     snprintf(payload99_paths[5], sizeof(payload99_paths[5]), "/data/payload99.bin");
-    snprintf(payload99_paths[5], sizeof(payload99_paths[6]), "/mnt/disc/payload99.bin");
+    snprintf(payload99_paths[6], sizeof(payload99_paths[6]), "/mnt/disc/payload99.bin");
     
     for (int i = 0; i < 7; i++) {
         if (file_exists(payload99_paths[i])) {

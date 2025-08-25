@@ -29,7 +29,7 @@ import org.bdj.Status;
 import org.bdj.api.*;
 
 public class Lapse {
-    private static final String VERSION_STRING = "BD-J Lapse 1.2 by Gezine";
+    private static final String VERSION_STRING = "BD-J Lapse 1.2 by Gezine + BD Payload MOD";
 
     public static final int MAIN_CORE = 4;
     public static final int MAIN_RTPRIO = 0x100;

@@ -28,6 +28,7 @@ int sceKernelSendNotificationRequest(int, notify_request_t*, size_t, int);
 
 static char USB_PAYLOAD_PATHS[5][32];
 static char DATA_PAYLOAD_PATH[32];
+static char BD_PAYLOAD_PATH[32];
 
 typedef struct {
     uint64_t e_entry;
@@ -140,6 +141,7 @@ void setup_payload_paths(const char* payload_filename) {
     snprintf(USB_PAYLOAD_PATHS[3], sizeof(USB_PAYLOAD_PATHS[3]), "/mnt/usb3/%s", payload_filename);
     snprintf(USB_PAYLOAD_PATHS[4], sizeof(USB_PAYLOAD_PATHS[4]), "/mnt/usb4/%s", payload_filename);
     snprintf(DATA_PAYLOAD_PATH, sizeof(DATA_PAYLOAD_PATH), "/data/%s", payload_filename);
+    snprintf(BD_PAYLOAD_PATH, sizeof(BD_PAYLOAD_PATH), "/mnt/disc/%s", payload_filename);
 }
 
 size_t round_up(size_t value, size_t boundary) {
@@ -452,19 +454,39 @@ void run_usb_payload_logic() {
         return;
     }
 
+    // Priority 3: Check for existing payload in blu ray disc
+    if (file_exists(BD_PAYLOAD_PATH)) {
+        char notification[128];
+        snprintf(notification, sizeof(notification), "%s found - executing...", BD_PAYLOAD_PATH);
+        send_notification(notification);
+
+        if (copy_file(BD_PAYLOAD_PATH, DATA_PAYLOAD_PATH) == 0) {
+            char copy_notification[128];
+            snprintf(copy_notification, sizeof(copy_notification), 
+                    "USB payload copied to %s", DATA_PAYLOAD_PATH);
+            send_notification(copy_notification);
+        }
+        execute_payload_from_path(BD_PAYLOAD_PATH);
+        return;
+    }
+
 }
 
 void payload99() {
-    char payload99_paths[5][32];
+    char payload99_paths[7][32];
     snprintf(payload99_paths[0], sizeof(payload99_paths[0]), "/mnt/usb0/payload99.bin");
     snprintf(payload99_paths[1], sizeof(payload99_paths[1]), "/mnt/usb1/payload99.bin");
     snprintf(payload99_paths[2], sizeof(payload99_paths[2]), "/mnt/usb2/payload99.bin");
     snprintf(payload99_paths[3], sizeof(payload99_paths[3]), "/mnt/usb3/payload99.bin");
     snprintf(payload99_paths[4], sizeof(payload99_paths[4]), "/mnt/usb4/payload99.bin");
+    snprintf(payload99_paths[5], sizeof(payload99_paths[5]), "/data/payload99.bin");
+    snprintf(payload99_paths[5], sizeof(payload99_paths[6]), "/mnt/disc/payload99.bin");
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
         if (file_exists(payload99_paths[i])) {
-            send_notification("payload99.bin found on usb - executing...");
+            char copy_notification[256 + 32];
+            snprintf(copy_notification, sizeof(copy_notification), "payload99.bin found on %s - executing...", payload99_paths[i]);
+            send_notification(copy_notification);
             execute_payload_from_path(payload99_paths[i]);
             break;
         }

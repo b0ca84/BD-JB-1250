@@ -1,3 +1,9 @@
+# Fork notes:
+
+Changes to read payload directly from Blu Ray.
+
+All thanks must be to Gezine for the awesome work.
+
 # BD-JB-1250
 BD-JB for up to PS4 12.50  
 ~~This might be the exploit that was reported by TheFlow and patched at 12.52~~  

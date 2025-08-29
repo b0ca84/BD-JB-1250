@@ -30,12 +30,6 @@ JAR          := $(JAVA8_HOME)/bin/jar
 export JAVA8_HOME
 
 #
-# Source/link settings
-#
-SRC_SRC := ../src
-PAYLOADS_SRC := ../payloads/lapse
-
-#
 # Compilation artifacts
 #
 CLASSPATH     := $(BDJSDK_HOME)/target/lib/enhanced-stubs.zip:$(BDJSDK_HOME)/target/lib/bdjstack.jar:$(BDJSDK_HOME)/target/lib/rt.jar:./discdir/BDMV/JAR/00000.jar
@@ -60,7 +54,7 @@ discdir:
 	cp -f payloads/lapse/Lapse.jar src/org/bdj/payload.jar || true
 	cp -r BDMV discdir/
 	cp payload.bin discdir/
-    cp -f payload99.bin discdir/ || true
+	cp -f payload99.bin discdir/ || true
 
 discdir/BDMV/JAR/00000.jar: discdir $(SOURCES)
 	$(JAVAC) $(JFLAGS) -cp $(CLASSPATH) $(SOURCES)

@@ -17,10 +17,6 @@ cp -r ../payloads/lapse payloads/lapse
 
 make -C payloads/lapse/src/org/bdj/external clean; make -C payloads/lapse/src/org/bdj/external
 
-make clean; make
-
 make -C payloads/lapse clean; make -C payloads/lapse
-
-cp payloads/lapse/Lapse.jar src/org/bdj/payload.jar
 
 make clean; make
